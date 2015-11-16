@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>React Tutorial</title>
+    <title>Pickem</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
@@ -18,7 +18,45 @@
   <body>
     <div id="content"></div>
     <script type="text/babel">
+      var Pickem = React.createClass({
+        getInitialState: function(){
+          return {
+            games : [],
+            week : 1
+          }
+        },
+        render: function(){
+          return (
+            <div className="pickemForm">
+              <h1>Week {week} Pickem</h1>
+              <GameList games={this.props.data} />
+            </div>
+          );
+        }
+      });
+      var GameList = React.createClass({
+        render: function(){
+          let gameItems = this.props.games.map(function(game) {
+            return (
+              <Game away={game.awayTeam} home={game.homeTeam} />
+            );
+          });
+          return (
+            <div className="gameList">
+              {gameItems}
+            </div>
+          );
+        }
+      });
+      var Game = React.createClass({
 
+      });
+      var Team = React.createClass({
+
+      });
+      var Chooser = React.createClass({
+        
+      });
     </script>
   </body>
 </html>
