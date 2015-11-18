@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
   </head>
   <body>
     <div id="content"></div>
@@ -25,11 +26,23 @@
             week : 1
           }
         },
+        componentDidMount: function(){
+          $.get('http://www.nfl.com/liveupdate/scores/scores.json',(data) => {
+            let gamesArray = [];
+            for ( let prop in data ){
+              data[prop].id = prop;
+              gamesArray.push(data[prop]);
+            }
+            console.log(gamesArray);
+            this.setState({games: gamesArray});
+          });
+          console.log(this.state.games);
+        },
         render: function(){
           return (
             <div className="pickemForm">
-              <h1>Week {week} Pickem</h1>
-              <GameList games={this.props.data} />
+              <h1>Week  Pickem</h1>
+              <GameList games={this.state.games} />
             </div>
           );
         }
@@ -38,25 +51,49 @@
         render: function(){
           let gameItems = this.props.games.map(function(game) {
             return (
-              <Game away={game.awayTeam} home={game.homeTeam} />
+              <Game key={game.id} awayTeam={game.away.abbr} homeTeam={game.home.abbr} />
             );
           });
           return (
-            <div className="gameList">
+            <ul className="gameList">
               {gameItems}
-            </div>
+            </ul>
           );
         }
       });
       var Game = React.createClass({
-
+        render: function(){
+          return(
+            <li>
+              <Team teamAbbr={this.props.awayTeam} />
+              <Chooser />
+              <Team teamAbbr={this.props.homeTeam} />
+            </li>
+          );
+        }
       });
       var Team = React.createClass({
-
+        render: function(){
+          let imgUrl
+          return(
+              <span>
+                <img src={'http://i.nflcdn.com/static/site/7.2/img/logos/teams-matte-80x53/'+this.props.teamAbbr+'.png'} />
+                {this.props.teamAbbr}
+              </span>
+          );
+        }
       });
       var Chooser = React.createClass({
-        
+        render: function(){
+          return(
+              <span>chooser</span>
+          );
+        }
       });
+      ReactDOM.render(
+        <Pickem />,
+        document.getElementById('content')
+      );
     </script>
   </body>
 </html>
