@@ -7,10 +7,10 @@ import Chooser from './chooser';
 const Game = React.createClass({
   render: function(){
     return(
-      <li>
+      <li className="game">
         <Team teamAbbr={this.props.awayTeam} />
         <Chooser />
-        <Team teamAbbr={this.props.homeTeam} />
+        <Team addClass="home" teamAbbr={this.props.homeTeam} />
       </li>
     );
   }

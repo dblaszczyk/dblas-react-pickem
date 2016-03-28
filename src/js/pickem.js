@@ -29,7 +29,7 @@ const Pickem = React.createClass({
 
   render: function(){
     return (
-      <div className="pickemForm">
+      <div className="pickem">
         <h1>Week  Pickem</h1>
         <GameList games={this.state.games} />
       </div>

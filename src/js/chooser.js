@@ -5,7 +5,7 @@ import React from 'react';
 const Chooser = React.createClass({
   render: function(){
     return(
-        <span>chooser</span>
+        <span className="chooser">chooser</span>
     );
   }
 });
