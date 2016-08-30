@@ -19,10 +19,22 @@ h1 {
     overflow: hidden;
 }
 
-.team {
-    float: left;
+.game {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
 
+    &>.chooser {
+        flex-grow: 2;
+    }
+
+    &>.team {
+    flex-grow: 1;
+    }
+}
+
+.team {
     &.home {
-        float: right;
+        text-align: right;
     }
 }

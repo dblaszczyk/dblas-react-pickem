@@ -8,9 +8,9 @@ const Game = React.createClass({
   render: function(){
     return(
       <li className="game">
-        <Team teamAbbr={this.props.awayTeam} />
+        <Team data={this.props.away} />
         <Chooser />
-        <Team addClass="home" teamAbbr={this.props.homeTeam} />
+        <Team addClass="home" data={this.props.home} home={true} />
       </li>
     );
   }

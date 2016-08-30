@@ -4,34 +4,41 @@ import React from 'react';
 import GameList from './gamelist';
 
 import get from './helpers/get';
+import buildGamesArray from './helpers/build-games-array';
 // ---------- Component Definition ---------- //
 const Pickem = React.createClass({
   getInitialState: function(){
     return {
-      games : [],
-      week : 1
+      week : 1,
+      gameList: []
     }
   },
 
+  getGameList: function() {
+      get('http://www.nfl.com/ajax/scorestrip?season=2016&seasonType=REG&week=' + this.state.week).then((response) => {
+          this.setState({gameList: buildGamesArray(response)});
+      });
+  },
+
   componentDidMount: function(){
-    get('http://www.nfl.com/liveupdate/scores/scores.json').then(response => {
-      let data = JSON.parse(response);
-      let gamesArray = [];
+      this.getGameList();
+  },
 
-      for ( let prop in data ){
-        data[prop].id = prop;
-        gamesArray.push(data[prop]);
-      }
+  handleWeekNavClick: function(e) {
+      let thisClass = e.target.className;
 
-      this.setState({games: gamesArray});
-    });
+      this.setState((previousState) => {
+          return {week: thisClass === 'next' ? previousState.week + 1 : previousState.week - 1};
+      }, this.getGameList);
   },
 
   render: function(){
     return (
       <div className="pickem">
-        <h1>Week  Pickem</h1>
-        <GameList games={this.state.games} />
+        <span className="prev" onClick={this.handleWeekNavClick}>&#x25C0;</span>
+        <span className="next" onClick={this.handleWeekNavClick}>&#x25B6;</span>
+        <h1>Week {this.state.week} Pickem</h1>
+        <GameList games={this.state.gameList} />
       </div>
     );
   }
