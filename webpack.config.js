@@ -19,13 +19,37 @@ module.exports = {
             {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!sass?outputStyle=expanded')
+            },
+            {
+                test: /\.(png|jp*g|gif)$/,
+                loader: 'url-loader?limit=8192'
+            },
+            {
+                test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url?limit=10000&mimetype=application/font-woff'
+            },
+            {
+                test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url?limit=10000&mimetype=application/font-woff'
+            },
+            {
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url?limit=10000&mimetype=application/octet-stream'
+            },
+            {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file'
+            },
+            {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url?limit=10000&mimetype=image/svg+xml'
             }
         ]
     },
     resolve: {
         extensions: ['', '.js', '.scss']
     },
-    postcss: function () {
+    postcss: function() {
         return [precss, autoprefixer];
     },
     plugins: [

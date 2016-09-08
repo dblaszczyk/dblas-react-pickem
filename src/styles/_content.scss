@@ -8,33 +8,53 @@ h1 {
 }
 
 .pickem {
-    width: 500px;
-    margin: 10px auto;
+    margin: 16px auto;
 }
 
 .gameList {
-    margin: 0;
-    padding: 0;
+    margin: 0 auto;
+    max-width: 50%;
+    min-width: 225px;
+    padding: 5px;
     list-style: none;
     overflow: hidden;
 }
 
 .game {
     display: flex;
-    width: 100%;
     overflow: hidden;
-
-    &>.chooser {
-        flex-grow: 2;
-    }
+    margin-bottom: 16px;
+    padding: 4px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
     &>.team {
-    flex-grow: 1;
+        flex-grow: 1;
     }
 }
 
 .team {
+    display: flex;
+    cursor: pointer;
+    width: 50%;
+    
+    .info {
+        margin-left: 10px;
+
+        h3 {
+            margin-top: 0;
+        }
+
+        > p {
+            margin: 0;
+        }
+    }
+
     &.home {
         text-align: right;
+        flex-direction: row-reverse;
+
+        .info {
+            margin: 0 10px 0 0;
+        }
     }
 }

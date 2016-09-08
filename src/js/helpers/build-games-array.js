@@ -2,10 +2,10 @@ const buildGamesArray = function(data) {
     let xmlDoc;
     if (window.DOMParser) {
         let parser = new DOMParser();
-        xmlDoc = parser.parseFromString(data,"text/xml");
+        xmlDoc = parser.parseFromString(data, 'text/xml');
     }
     else {
-        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+        xmlDoc = new ActiveXObject('Microsoft.XMLDOM');
         xmlDoc.async = false;
         xmlDoc.loadXML(data);
     }
@@ -17,21 +17,21 @@ const buildGamesArray = function(data) {
         let game = games[x];
 
         gamesArray.push({
-            id: games[x].attributes['eid'].nodeValue,
+            id: games[x].attributes.eid.nodeValue,
             home: {
-                abbr: game.attributes['h'].nodeValue,
-                name: game.attributes['hnn'].nodeValue,
-                score: game.attributes['hs'].nodeValue
+                abbr: game.attributes.h.nodeValue,
+                name: game.attributes.hnn.nodeValue,
+                score: game.attributes.hs.nodeValue
             },
             away: {
-                abbr: game.attributes['v'].nodeValue,
-                name: game.attributes['vnn'].nodeValue,
-                score: game.attributes['vs'].nodeValue
+                abbr: game.attributes.v.nodeValue,
+                name: game.attributes.vnn.nodeValue,
+                score: game.attributes.vs.nodeValue
             }
         });
-    };
+    }
 
     return gamesArray;
-}
+};
 
 export default buildGamesArray;
